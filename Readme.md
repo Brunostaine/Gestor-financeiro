@@ -8,7 +8,6 @@ Esse é o projeto de uma API Rest para gestão financeira que será integrado à
 - Gerir receitas e despesas
 - Cadastro de autenticação de usuários
 - Filtros e paginação
-- 
 
 ## :open_file_folder: Tecnologias utilizadas
 [![My Skills](https://skillicons.dev/icons?i=java,spring,idea,docker,postgres)](https://skillicons.dev)
@@ -26,7 +25,7 @@ Utilize a IDE de sua preferência a que usei foi a InteliJ
 Utilize ferramentas como postman ou insominia para testar os endponts
 
 ## :large_blue_circle: Implementações futuras
-- [ ] A API deverá ser configurada com o Timezone do país
+- [x] A API deverá ser configurada com o Timezone do país
 - [ ] Implementar Requisitos de usuario
 - [ ] Implementar Requisitos de autenticação
 - [ ] Implementar Requisitos de metas
