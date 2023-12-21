@@ -32,8 +32,6 @@ public class Meta implements Serializable {
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
-    @ManyToOne
-    private Usuario usuario;
 
     @Override
     public boolean equals(Object o) {

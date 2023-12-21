@@ -36,10 +36,13 @@ public class Usuario implements Serializable {
     @NotBlank
     @Size(min = 6, max = 6)
     private String password;
-    @OneToMany(mappedBy = "usuario")
-    private List<Meta> metas = new ArrayList<>();
-    @OneToMany(mappedBy = "usuario")
-    private List<Financas> financas = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "usuario_id")
+    private List<Meta> metas;
+    @OneToMany
+    @JoinColumn(name = "usuario_id")
+    private List<Financas> financas;
+
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;

@@ -36,8 +36,6 @@ public class Financas implements Serializable {
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
-    @ManyToOne
-    private Usuario usuario;
 
     @Override
     public boolean equals(Object o) {
