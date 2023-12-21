@@ -2,10 +2,12 @@ package com.brunostaine.api.gestor.financeiro.entities;
 
 import com.brunostaine.api.gestor.financeiro.enums.Categoria;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,15 +25,21 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private UUID id;
     @Column(name = "nome", nullable = false, length = 100)
+    @NotBlank
+    @Size(min = 5, max = 100)
     private String nome;
     @Column(name = "email", nullable = false, unique = true, length = 50)
+    @NotBlank
+    @Email
     private String email;
     @Column(name = "password", nullable = false, length = 200)
+    @NotBlank
+    @Size(min = 6, max = 6)
     private String password;
     @OneToMany(mappedBy = "usuario")
     private List<Meta> metas = new ArrayList<>();
     @OneToMany(mappedBy = "usuario")
-    private List<Financas> financas;
+    private List<Financas> financas = new ArrayList<>();
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
