@@ -25,14 +25,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getAll(@PathVariable UUID id){
+    public ResponseEntity<Usuario> getById(@PathVariable UUID id){
         Usuario user = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> getById(){
+    public ResponseEntity<List<Usuario>> getAll(){
         List<Usuario> users = usuarioService.buscarTodos();
         return ResponseEntity.ok(users);
     }
+
+
 }
