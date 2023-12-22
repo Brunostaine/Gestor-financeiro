@@ -1,6 +1,6 @@
 package com.brunostaine.api.gestor.financeiro.entities;
 
-import com.brunostaine.api.gestor.financeiro.enums.Status;
+import com.brunostaine.api.gestor.financeiro.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

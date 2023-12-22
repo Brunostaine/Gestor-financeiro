@@ -1,17 +1,13 @@
 package com.brunostaine.api.gestor.financeiro.entities;
 
-import com.brunostaine.api.gestor.financeiro.enums.Categoria;
+import com.brunostaine.api.gestor.financeiro.entities.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,16 +21,10 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private UUID id;
     @Column(name = "nome", nullable = false, length = 100)
-    @NotBlank
-    @Size(min = 5, max = 100)
     private String nome;
-    @Column(name = "email", nullable = false, unique = true, length = 50)
-    @NotBlank
-    @Email
-    private String email;
+    @Column(name = "username", nullable = false, unique = true, length = 50)
+    private String username;
     @Column(name = "password", nullable = false, length = 200)
-    @NotBlank
-    @Size(min = 6, max = 6)
     private String password;
     @OneToMany
     @JoinColumn(name = "usuario_id")
@@ -42,13 +32,17 @@ public class Usuario implements Serializable {
     @OneToMany
     @JoinColumn(name = "usuario_id")
     private List<Financas> financas;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 25)
+    private Role role = Role.ROLE_USUARIO;
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
+
+
 
     @Override
     public boolean equals(Object o) {

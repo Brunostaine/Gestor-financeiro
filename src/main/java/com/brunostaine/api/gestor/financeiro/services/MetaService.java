@@ -1,8 +1,7 @@
 package com.brunostaine.api.gestor.financeiro.services;
 
 import com.brunostaine.api.gestor.financeiro.entities.Meta;
-import com.brunostaine.api.gestor.financeiro.entities.Usuario;
-import com.brunostaine.api.gestor.financeiro.enums.Status;
+import com.brunostaine.api.gestor.financeiro.entities.enums.Status;
 import com.brunostaine.api.gestor.financeiro.exceptions.EntityNotFoundException;
 import com.brunostaine.api.gestor.financeiro.repositories.MetaRepository;
 import lombok.RequiredArgsConstructor;

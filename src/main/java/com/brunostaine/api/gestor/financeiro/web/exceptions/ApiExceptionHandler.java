@@ -3,6 +3,7 @@ package com.brunostaine.api.gestor.financeiro.web.exceptions;
 
 import com.brunostaine.api.gestor.financeiro.exceptions.EmailUniqueViolationException;
 import com.brunostaine.api.gestor.financeiro.exceptions.EntityNotFoundException;
+import com.brunostaine.api.gestor.financeiro.exceptions.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(EmailUniqueViolationException.class)
+    @ExceptionHandler({EmailUniqueViolationException.class, UsernameUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex,
                                                                  HttpServletRequest request){
 //        log.error("Api error - ", ex);

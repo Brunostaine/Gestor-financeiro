@@ -1,10 +1,13 @@
 package com.brunostaine.api.gestor.financeiro.services;
 
 import com.brunostaine.api.gestor.financeiro.entities.Usuario;
-import com.brunostaine.api.gestor.financeiro.exceptions.EmailUniqueViolationException;
+import com.brunostaine.api.gestor.financeiro.entities.enums.Role;
+
 import com.brunostaine.api.gestor.financeiro.exceptions.EntityNotFoundException;
+import com.brunostaine.api.gestor.financeiro.exceptions.UsernameUniqueViolationException;
 import com.brunostaine.api.gestor.financeiro.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +18,15 @@ import java.util.UUID;
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        var emailExists = usuarioRepository.findByEmail(usuario.getEmail());
-        if(emailExists.isPresent()) {
-            throw new EmailUniqueViolationException(String.format("E-mail: '%s' já cadastrado", usuario.getEmail()));
-        } else {
+        try {
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             return usuarioRepository.save(usuario);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new UsernameUniqueViolationException(String.format("Username '%s' já cadastrado", usuario.getUsername()));
         }
     }
 
@@ -38,4 +42,15 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public Usuario buscarPorUsername(String username) {
+        return usuarioRepository.findByUsername(username).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Usuario com '%s' não encontrado", username))
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Role buscarRolePorUsername(String username) {
+        return usuarioRepository.findRoleByUsername(username);
+    }
 }
