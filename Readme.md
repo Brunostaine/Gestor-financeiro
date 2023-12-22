@@ -30,6 +30,7 @@ Utilize ferramentas como postman ou insominia para testar os endponts
 - [x] Implementar Requisitos de autenticação
 - [x] Implementar Requisitos de metas
 - [ ] Implementar Requisitos de Receitas e despesas
+- [x] Implementar Auditoria
 - [ ] Implementar documentação com Swagger
 - [ ] Implementar testes de ponta a ponta
 
