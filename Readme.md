@@ -26,9 +26,9 @@ Utilize ferramentas como postman ou insominia para testar os endponts
 
 ## :large_blue_circle: Implementações futuras
 - [x] A API deverá ser configurada com o Timezone do país
-- [ ] Implementar Requisitos de usuario
-- [ ] Implementar Requisitos de autenticação
-- [ ] Implementar Requisitos de metas
+- [x] Implementar Requisitos de usuario
+- [x] Implementar Requisitos de autenticação
+- [x] Implementar Requisitos de metas
 - [ ] Implementar Requisitos de Receitas e despesas
 - [ ] Implementar documentação com Swagger
 - [ ] Implementar testes de ponta a ponta
