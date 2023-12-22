@@ -4,6 +4,7 @@ import com.brunostaine.api.gestor.financeiro.entities.Usuario;
 import com.brunostaine.api.gestor.financeiro.entities.enums.Role;
 
 import com.brunostaine.api.gestor.financeiro.exceptions.EntityNotFoundException;
+import com.brunostaine.api.gestor.financeiro.exceptions.PasswordInvalidException;
 import com.brunostaine.api.gestor.financeiro.exceptions.UsernameUniqueViolationException;
 import com.brunostaine.api.gestor.financeiro.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,21 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado", id))
         );
+    }
+
+    @Transactional
+    public Usuario editarSenha(UUID id, String senhaAtual, String novaSenha, String confirmaSenha) {
+        if (!novaSenha.equals(confirmaSenha)) {
+            throw new PasswordInvalidException("Nova senha não confere com confirmação de senha.");
+        }
+
+        Usuario user = buscarPorId(id);
+        if (!passwordEncoder.matches(senhaAtual, user.getPassword())) {
+            throw new PasswordInvalidException("Sua senha não confere.");
+        }
+
+        user.setPassword(passwordEncoder.encode(novaSenha));
+        return user;
     }
 
     @Transactional(readOnly = true)
