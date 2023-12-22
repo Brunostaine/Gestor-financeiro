@@ -28,12 +28,6 @@ public class Usuario implements Serializable {
     private String username;
     @Column(name = "password", nullable = false, length = 200)
     private String password;
-    @OneToMany
-    @JoinColumn(name = "usuario_id")
-    private List<Meta> metas;
-    @OneToMany
-    @JoinColumn(name = "usuario_id")
-    private List<Financas> financas;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
     private Role role = Role.ROLE_USUARIO;
@@ -43,9 +37,6 @@ public class Usuario implements Serializable {
     @LastModifiedDate
     @Column(name = "data_modificacao")
     private LocalDateTime dataModificacao;
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

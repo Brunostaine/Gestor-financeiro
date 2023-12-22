@@ -1,11 +1,18 @@
 package com.brunostaine.api.gestor.financeiro.web.controllers;
 
+import com.brunostaine.api.gestor.financeiro.config.jwt.JwtUserDetails;
 import com.brunostaine.api.gestor.financeiro.entities.Meta;
 import com.brunostaine.api.gestor.financeiro.services.MetaService;
+import com.brunostaine.api.gestor.financeiro.services.UsuarioService;
+import com.brunostaine.api.gestor.financeiro.web.dtos.MetaCreateDTO;
+import com.brunostaine.api.gestor.financeiro.web.dtos.MetaResponseDTO;
+import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.MetaMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +24,18 @@ import java.util.UUID;
 public class MetaController {
 
     private final MetaService metaService;
+    private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Meta> create(@Valid @RequestBody Meta meta) {
-        Meta novaMeta = metaService.salvar(meta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaMeta);
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<MetaResponseDTO> create(@Valid @RequestBody MetaCreateDTO dto,
+                                                  @AuthenticationPrincipal JwtUserDetails userDetails
+                                                  ) {
+        Meta meta = MetaMapper.toMeta(dto);
+        meta.setUsuario(usuarioService.buscarPorId(userDetails.getId()));
+        metaService.salvar(meta);
+        return ResponseEntity.status(201).body(MetaMapper.toDto(meta));
+
     }
 
     @GetMapping("/{id}")

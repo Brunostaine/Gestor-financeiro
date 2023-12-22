@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "metas")
+@EntityListeners(AuditingEntityListener.class)
 public class Meta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,6 +28,10 @@ public class Meta implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 25)
     private Status status = Status.INICIADA;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;

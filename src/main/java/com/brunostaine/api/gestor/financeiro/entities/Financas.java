@@ -17,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "receitas_despesas")
+@Table(name = "financas")
 public class Financas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +33,9 @@ public class Financas implements Serializable {
     private Categoria categoria;
     @Column(name = "descricao", length = 300)
     private String descricao;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
