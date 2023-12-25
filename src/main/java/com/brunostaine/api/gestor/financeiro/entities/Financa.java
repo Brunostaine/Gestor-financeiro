@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "financas")
-public class Financas implements Serializable {
+public class Financa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -44,7 +44,7 @@ public class Financas implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Financas financas = (Financas) o;
+        Financa financas = (Financa) o;
         return Objects.equals(id, financas.id);
     }
 
@@ -59,4 +59,6 @@ public class Financas implements Serializable {
                 "id=" + id +
                 '}';
     }
+
+
 }

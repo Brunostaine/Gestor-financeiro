@@ -1,10 +1,7 @@
 package com.brunostaine.api.gestor.financeiro.web.exceptions;
 
 
-import com.brunostaine.api.gestor.financeiro.exceptions.EmailUniqueViolationException;
-import com.brunostaine.api.gestor.financeiro.exceptions.EntityNotFoundException;
-import com.brunostaine.api.gestor.financeiro.exceptions.PasswordInvalidException;
-import com.brunostaine.api.gestor.financeiro.exceptions.UsernameUniqueViolationException;
+import com.brunostaine.api.gestor.financeiro.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +14,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
+    @ExceptionHandler({CategoriaInvalidException.class, TipoInvalidException.class, ValorInvalidException.class})
+    public ResponseEntity<ErrorMessage> categoriaInvalidException(RuntimeException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage()));
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorMessage> accessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
