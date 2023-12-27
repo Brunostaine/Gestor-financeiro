@@ -10,6 +10,7 @@ import com.brunostaine.api.gestor.financeiro.web.dtos.FinancaResponseDTO;
 import com.brunostaine.api.gestor.financeiro.web.dtos.PageableDTO;
 import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.FinancaMapper;
 import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.PageableMapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.file.AccessDeniedException;
 import java.util.UUID;
 
-
+@Tag(name = "Finanças", description = "Recurso para trabalhar com finanças")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/financas")

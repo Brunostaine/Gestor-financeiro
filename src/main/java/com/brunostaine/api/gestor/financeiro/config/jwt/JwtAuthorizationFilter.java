@@ -26,13 +26,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         final String token = request.getHeader(JwtUtils.JWT_AUTHORIZATION);
 
         if (token == null || !token.startsWith(JwtUtils.JWT_BEARER)) {
-            log.info("JWT Token está nulo, vazio ou não iniciado com 'Bearer '.");
+            log.warn("Token de autenticação ausente ou inválido: {}", token);
             filterChain.doFilter(request, response);
             return;
         }
 
         if (!JwtUtils.isTokenValid(token)) {
-            log.warn("JWT Token está inválido ou expirado.");
+            log.warn("Token JWT inválido ou expirado: {}", token);
             filterChain.doFilter(request, response);
             return;
         }
@@ -52,6 +52,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        if (SecurityContextHolder.getContext() != null) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
     }
 }

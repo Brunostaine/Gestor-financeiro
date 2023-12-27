@@ -7,6 +7,7 @@ import com.brunostaine.api.gestor.financeiro.services.UsuarioService;
 import com.brunostaine.api.gestor.financeiro.web.dtos.MetaCreateDTO;
 import com.brunostaine.api.gestor.financeiro.web.dtos.MetaResponseDTO;
 import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.MetaMapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-
+@Tag(name = "Metas", description = "Recurso para trabalhar com metas")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/metas")
