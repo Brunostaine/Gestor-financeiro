@@ -2,7 +2,6 @@ package com.brunostaine.api.gestor.financeiro.web.controllers;
 
 import com.brunostaine.api.gestor.financeiro.config.jwt.JwtUserDetails;
 import com.brunostaine.api.gestor.financeiro.entities.Financa;
-import com.brunostaine.api.gestor.financeiro.entities.Meta;
 import com.brunostaine.api.gestor.financeiro.repositories.projection.FinancaProjection;
 import com.brunostaine.api.gestor.financeiro.services.FinancaService;
 import com.brunostaine.api.gestor.financeiro.services.UsuarioService;
@@ -13,18 +12,21 @@ import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.FinancaMapper;
 import com.brunostaine.api.gestor.financeiro.web.dtos.mapper.PageableMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Parameter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.nio.file.AccessDeniedException;
+import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -53,4 +55,21 @@ public class FinancaController {
         PageableDTO dto = PageableMapper.toDto(projection);
         return ResponseEntity.ok(dto);
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> updateFinancePorId(@PathVariable UUID id,
+                                                   @Valid @RequestBody FinancaCreateDTO dto) throws AccessDeniedException {
+
+        financaService.editarFinancaPorId(id, dto.getTipo(), dto.getValor(), dto.getCategoria(), dto.getDescricao());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USUARIO')")
+    public ResponseEntity<Void> deleteFinancePorId(@PathVariable UUID id) throws AccessDeniedException {
+        financaService.deletarFinancaPorId(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -5,6 +5,8 @@ import com.brunostaine.api.gestor.financeiro.entities.enums.Tipo;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,6 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "financas")
+@EntityListeners(AuditingEntityListener.class)
 public class Financa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,12 +36,15 @@ public class Financa implements Serializable {
     private Categoria categoria;
     @Column(name = "descricao", length = 300)
     private String descricao;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+    @LastModifiedDate
+    @Column(name = "data_modificacao")
+    private LocalDateTime dataModificacao;
 
     @Override
     public boolean equals(Object o) {

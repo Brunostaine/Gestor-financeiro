@@ -18,5 +18,6 @@ public class FinancaResponseDTO {
     private String tipo;
     private BigDecimal valor;
     private String categoria;
+    private String descricao;
 
 }
