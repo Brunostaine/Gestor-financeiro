@@ -31,13 +31,12 @@ Utilize ferramentas como postman ou insominia para testar os endponts
 - [x] Implementar Requisitos de metas
 - [x] Implementar Requisitos de Finanças
 - [x] Implementar Auditoria
-- [ ] Implementar documentação com Swagger
-- [ ] Implementar testes de ponta a ponta
+- [x] Implementar documentação com Swagger
 
 
 ## :globe_with_meridians: Status do projeto
 
-![Badge em Desenvolvimento](https://img.shields.io/static/v1?label=STATUS&message=EM_DESENVOLVIMENTO&color=blue&style=for-the-badge)
+![Badge Status](https://img.shields.io/static/v1?label=STATUS&message=Finalizado&color=GREEN&style=for-the-badge)
 
 ## :mag_right: Referências
 - [Spring boot](https://docs.spring.io/spring-framework/reference/index.html)
@@ -45,8 +44,7 @@ Utilize ferramentas como postman ou insominia para testar os endponts
 - [Lombok](https://projectlombok.org/features/)
 
 ## :open_file_folder: Imagens
-Em breve ..
-
+![img-swagger.png](src%2Fmain%2Fresources%2Fassets%2Fimg-swagger.png)
 ## :construction_worker: Autor
 <img src="https://user-images.githubusercontent.com/87622645/157755137-8d22a951-d323-4c33-814e-c0351ebefafe.png" width=100><br>
 <sub>Bruno Staine Caires de Oliveira</sub><br>
